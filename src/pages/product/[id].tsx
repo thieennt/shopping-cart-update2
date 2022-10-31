@@ -1,4 +1,4 @@
-import { Col, Row, Tabs } from "antd";
+import { Col, Rate, Row, Tabs } from "antd";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
@@ -6,6 +6,8 @@ import AllProduct from "../../components/Products/AllProduct";
 import ProductDetail from "../../components/Products/ProductDetails";
 import Review from "../../components/Products/Review";
 import { addToCart, decreaseProduct } from "../../redux/slice/cartSlice";
+import { IoMdHeartEmpty } from "react-icons/io";
+import Description from "../../components/Products/Description";
 
 const Product = ({ product }: any) => {
   console.log(product);
@@ -25,13 +27,28 @@ const Product = ({ product }: any) => {
               <Col className="gutter-row" span={12}>
                 <div className="product-info">
                   <h1 className="name">{product.name}</h1>
-                  <p className="price">${product.price}</p>
-                  <div className="add-to-cart">
-                    <button onClick={() => dispatch(addToCart(product))}>
-                      ADD TO CART
-                    </button>
+                  <div className="branch">
+                    <span>Brands:armani</span>
+                    <span>
+                      <Rate allowHalf disabled defaultValue={4.5} />
+                      (25 reviews)
+                    </span>
                   </div>
+                  <div></div>
+                  <p className="price">${product.price}</p>
                   <p className="description">{product.description}</p>
+                  <div className="actions">
+                    <div className="add-to-cart">
+                      <button onClick={() => dispatch(addToCart(product))}>
+                        ADD TO CART
+                      </button>
+                    </div>
+                    <span className="add-to-wishlist">
+                      <button>
+                        <IoMdHeartEmpty style={{ fontSize: 20 }} />
+                      </button>
+                    </span>
+                  </div>
                 </div>
               </Col>
             </Row>
@@ -44,7 +61,7 @@ const Product = ({ product }: any) => {
                     {
                       label: "Description",
                       key: "1",
-                      children: <AllProduct />,
+                      children: <Description />,
                     },
                     {
                       label: "Reviews",
